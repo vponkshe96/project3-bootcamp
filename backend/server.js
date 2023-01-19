@@ -1,39 +1,25 @@
-//importing packages
+//IMPORTING PACKAGES
 const express = require("express");
 require("dotenv").config();
 const meetingRoutes = require("./routes/meetings");
 
-//setting up db and server connection to listen for requests
+//SETTING UP DB CONNECTION AND SERVER TO LISTEN FOR REQUESTS
 const app = express();
 const PORT = process.env.PORT;
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
-  {
-    dialect: process.env.DB_DIALECT,
-  }
-);
-sequelize
-  .authenticate()
-  .then(() =>
-    app.listen(PORT, () =>
-      console.log(`Connected to db and listening on port ${PORT}!`)
-    )
-  )
-  .catch((err) => console.log(`Error connecting to db - ${err}`));
+const db = require("./models/index");
 
-//global middleware
+//CREATING TABLE IN DB VIA IIFE
+(async () => await db.sequelize.sync())();
+
+//GLOBAL MIDDLEWARE IE. APPLIED ON EVERY ROUTE
 app.use(express.json());
 //For handling POST and PUT request scenario
 //checks to see if any incoming request has a body ie. data which it wants to send to server
 //passes that info to request object so we can access it in the request handler
-
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-//routes
+//ROUTES
 app.use("/api/meetings", meetingRoutes);
