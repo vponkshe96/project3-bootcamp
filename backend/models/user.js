@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  //CREATING & EXPORTING USER MODEL
+  //CREATING & EXPORTING USER MODEL via anonymous function
   const user = sequelize.define(
     "user",
     {

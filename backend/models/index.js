@@ -16,4 +16,5 @@ const db = {};
 db.sequelize = sequelize;
 db.models = {};
 db.models.user = require("./user")(sequelize, Sequelize.DataTypes);
+//passing arguments down to user model's anonymous function
 module.exports = db;

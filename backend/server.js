@@ -2,14 +2,23 @@
 const express = require("express");
 require("dotenv").config();
 const meetingRoutes = require("./routes/meetings");
-
-//SETTING UP DB CONNECTION AND SERVER TO LISTEN FOR REQUESTS
-const app = express();
-const PORT = process.env.PORT;
 const db = require("./models/index");
 
-//CREATING TABLE IN DB VIA IIFE
-(async () => await db.sequelize.sync())();
+///INITIALIZING VARIABLES
+const app = express();
+const PORT = process.env.PORT;
+
+//USING IMPORTED DB CONNECTION IE. DB.SEQUELIZE - TO INSERT A TABLE/TABLES INTO THE DB THEN STARTING OUR SERVER
+db.sequelize
+  .sync({ alter: true })
+  .then(() =>
+    app.listen(PORT, () =>
+      console.log(
+        `DB connection established, Table created, and listening on port ${PORT}!`
+      )
+    )
+  )
+  .catch((err) => console.log(`ERROR- ${err}`));
 
 //GLOBAL MIDDLEWARE IE. APPLIED ON EVERY ROUTE
 app.use(express.json());
