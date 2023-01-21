@@ -15,6 +15,6 @@ const sequelize = new Sequelize(
 const db = {};
 db.sequelize = sequelize;
 db.models = {};
-db.models.user = require("./user")(sequelize, Sequelize.DataTypes);
-//passing arguments down to user model's anonymous function
+db.models.meetings = require("./meetingsModel")(sequelize, Sequelize.DataTypes);
+//passing arguments down to meetings model's anonymous function
 module.exports = db;

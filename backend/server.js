@@ -1,7 +1,7 @@
 //IMPORTING PACKAGES
 const express = require("express");
 require("dotenv").config();
-const meetingRoutes = require("./routes/meetings");
+const meetingsRoutes = require("./routes/meetingsRoutes");
 const db = require("./models/index");
 
 ///INITIALIZING VARIABLES
@@ -31,4 +31,4 @@ app.use((req, res, next) => {
 });
 
 //ROUTES
-app.use("/api/meetings", meetingRoutes);
+app.use("/api/meetings", meetingsRoutes);
