@@ -1,10 +1,8 @@
 //IMPORTING MODEL
-//MOVING IT FROM ROUTES AS CONTROLLERS WOULD HANDLE LOGIC FOR INTERACTIONS WITH DB
 const {
   models: { meetings },
 } = require("../models/index");
-//double destructuring syntax, doesn't work if I change it
-//Find out more
+//double destructuring syntax, doesn't work if I change it --> find out more
 
 //DEFINING MIDDLEWARE FOR ROUTES
 
@@ -17,18 +15,17 @@ const getAllMeetings = async (req, res) => {
     res.status(400).json({ err: err.message });
   }
 };
-//could consider optimizing it later by manipulating how results are displayed
 
 //get single meeting
 const getMeeting = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const allMeetings = await meetings.findByPk(id);
-    res.status(200).json(allMeetings);
-  } catch (err) {
-    res.status(400).json({ err: err.message });
+  const { id } = req.params;
+  const meeting = await meetings.findByPk(id);
+  if (!meeting) {
+    return res.status(404).json({ error: "No such meeting" });
   }
+  res.status(200).json(meeting);
 };
+
 //create new meeting
 const createMeeting = async (req, res) => {
   const { full_name, tag, meeting_date, meeting_notes } = req.body;
@@ -50,7 +47,44 @@ const createMeeting = async (req, res) => {
 };
 
 //delete meeting
+const deleteMeeting = async (req, res) => {
+  const { id } = req.params;
+  const meeting = await meetings.findByPk(id);
+  if (!meeting) {
+    return res
+      .status(404)
+      .json({ error: "Cannot delete meeting as no such meeting exists!" });
+  }
+  try {
+    await meetings.destroy({
+      where: { id: id },
+    });
+    res.status(200).json(`Deleted meeting with id ${id}`);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 //update meeting
+const updateMeeting = async (req, res) => {
+  const { id } = req.params;
+  const meeting = await meetings.findByPk(id);
+  if (!meeting) {
+    return res
+      .status(404)
+      .json({ error: "Cannot edit meeting as no such meeting exists!" });
+  }
+  try {
+    //code for updating meeting
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-module.exports = { getAllMeetings, getMeeting, createMeeting };
+module.exports = {
+  getAllMeetings,
+  getMeeting,
+  createMeeting,
+  deleteMeeting,
+  updateMeeting,
+};

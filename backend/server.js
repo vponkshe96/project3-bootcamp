@@ -4,11 +4,11 @@ require("dotenv").config();
 const meetingsRoutes = require("./routes/meetingsRoutes");
 const db = require("./models/index");
 
-///INITIALIZING VARIABLES
+//INITIALIZING VARIABLES
 const app = express();
 const PORT = process.env.PORT;
 
-//USING IMPORTED DB CONNECTION IE. DB.SEQUELIZE - TO INSERT A TABLE/TABLES INTO THE DB THEN STARTING OUR SERVER
+//CONNECTING TO DB, INSERTING TABLE, STARTING OUR SERVER
 db.sequelize
   .sync({ alter: true })
   .then(() =>
@@ -20,7 +20,7 @@ db.sequelize
   )
   .catch((err) => console.log(`ERROR- ${err}`));
 
-//GLOBAL MIDDLEWARE IE. APPLIED ON EVERY ROUTE
+//GLOBAL MIDDLEWARE ie.applied on every route
 app.use(express.json());
 //For handling POST and PUT request scenario
 //checks to see if any incoming request has a body ie. data which it wants to send to server

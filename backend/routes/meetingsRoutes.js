@@ -4,6 +4,8 @@ const {
   getAllMeetings,
   getMeeting,
   createMeeting,
+  deleteMeeting,
+  updateMeeting,
 } = require("../controllers/meetingsController");
 
 //GET all meetings
@@ -16,13 +18,9 @@ router.get("/:id", getMeeting);
 router.post("/", createMeeting);
 
 //DELETE a meeting
-router.delete("/:id", (req, res) =>
-  res.json({ mssg: "DELETE a single meeting" })
-);
+router.delete("/:id", deleteMeeting);
 
 //UPDATE a meeting
-router.patch("/:id", (req, res) =>
-  res.json({ mssg: "UPDATE a single meeting" })
-);
+router.patch("/:id", updateMeeting);
 
 module.exports = router;
