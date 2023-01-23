@@ -1,5 +1,6 @@
 //IMPORTING PACKAGES
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const meetingsRoutes = require("./routes/meetingsRoutes");
 const db = require("./models/index");
@@ -21,6 +22,7 @@ db.sequelize
   .catch((err) => console.log(`ERROR- ${err}`));
 
 //GLOBAL MIDDLEWARE ie.applied on every route
+app.use(cors());
 app.use(express.json());
 //For handling POST and PUT request scenario
 //checks to see if any incoming request has a body ie. data which it wants to send to server
