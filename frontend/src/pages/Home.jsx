@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MeetingDetails from "../components/MeetingDetails";
+import MeetingForm from "../components/MeetingForm";
 
 const Home = () => {
   const [meetings, setMeetings] = useState(null);
   useEffect(() => {
     const fetchMeetings = async () => {
-      const rawResponse = await axios.get("http://localhost:8888/api/meetings");
+      const rawResponse = await axios.get("http://localhost:4444/api/meetings");
       //receive in json format coz that's the format the backend sends us the data, array of objects
       const response = rawResponse.data;
       setMeetings(response);
@@ -21,6 +22,7 @@ const Home = () => {
             <MeetingDetails key={meeting.id} meeting={meeting} />
           ))}
       </div>
+      <MeetingForm />
     </div>
   );
 };

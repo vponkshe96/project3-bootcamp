@@ -5,11 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       full_name: { type: DataTypes.STRING, allowNull: false },
       tag: { type: DataTypes.STRING, allowNull: false },
-      meeting_date: { type: DataTypes.DATEONLY, allowNull: true },
+      meeting_date: { type: DataTypes.DATEONLY, allowNull: false },
       meeting_notes: { type: DataTypes.TEXT, allowNull: false },
     },
     {
       freezeTableName: true,
+      underscored: true,
     }
   );
   return meetingsModel;

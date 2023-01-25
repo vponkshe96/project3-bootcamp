@@ -24,13 +24,13 @@ db.sequelize
 //GLOBAL MIDDLEWARE ie.applied on every route
 app.use(cors());
 app.use(express.json());
-//For handling POST and PUT request scenario
-//checks to see if any incoming request has a body ie. data which it wants to send to server
-//passes that info to request object so we can access it in the request handler
+//For handling POST and PUT request scenario where data is send in request body
+//middleware function allows to access this data 
+//specifically parses POST requests that has json data in their body
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
-});
+}); 
 
 //ROUTES
 app.use("/api/meetings", meetingsRoutes);

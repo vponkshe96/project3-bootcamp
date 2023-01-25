@@ -28,7 +28,11 @@ const getMeeting = async (req, res) => {
 
 //create new meeting
 const createMeeting = async (req, res) => {
-  const { full_name, tag, meeting_date, meeting_notes } = req.body;
+  const full_name = req.body.fullName;
+  const tag = req.body.tag;
+  const meeting_date = req.body.date;
+  const meeting_notes = req.body.notes;
+
   try {
     const meeting = await meetings.create({
       full_name,
@@ -36,6 +40,7 @@ const createMeeting = async (req, res) => {
       meeting_date,
       meeting_notes,
     });
+
     //inserting meeting data into db table via create sequelize method that takes in object
     //using object notation shorthand since key and value are same
     res.status(200).json(meeting);
