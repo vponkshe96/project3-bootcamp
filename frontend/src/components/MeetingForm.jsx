@@ -11,11 +11,15 @@ const MeetingForm = () => {
     e.preventDefault();
     const meeting = { fullName, date, tag, notes };
     const response = await axios.post(
-      `http://localhost:4444/api/meetings`,
+      "http://localhost:4444/api/meetings",
       meeting
     );
-    if (response.status === 200)
-      alert("New meeting has been successfully added!");
+    if (response.status === 200) {
+      alert("New meeting has been successfully ADDED!");
+      //refreshing page
+      window.location.reload(false);
+    }
+
     setFullName("");
     setDate("");
     setTag("");

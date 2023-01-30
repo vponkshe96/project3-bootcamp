@@ -3,7 +3,7 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  --primary: rgba(0, 145, 255, 0.763);
   --error: #e7195a;
 }
 body {
